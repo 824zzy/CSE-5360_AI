@@ -1,3 +1,33 @@
+class Node:
+    def __init__(self, city, g, f, tc, parent=None):
+        """Description: 
+        'Nodes[nbour[0]] = node(nbour[0],cost,nbour[1], fvalue, parent)  
+        Args: 
+            city: str, the origin city name
+	        g: int, the cost to reach the node
+            f: int, estimated cost of the cheapest solution 
+            tc: int, total cost of current state
+            parent:
+        """
+        self.city = city
+        self.g = g
+        self.f = f
+        self.tc = tc
+        self.parent = parent
+
+class PriorityQueue:
+    def __init__(self):
+        self.elements = []
+    
+    def empty(self):
+        return len(self.elements) == 0
+    
+    def put(self, item, priority):
+        heapq.heappush(self.elements, (priority, item))
+    
+    def get(self):
+        return heapq.heappop(self.elements)[1]
+
 def parse_input(file):
     """ Parse input file's lines into dictionary
     Args: 
