@@ -1,18 +1,18 @@
 class Node:
-    def __init__(self, city, g, f, tc, parent=None):
+    def __init__(self, city, g=0, tc=0, f=0, parent=None):
         """Description: 
         'Nodes[nbour[0]] = node(nbour[0],cost,nbour[1], fvalue, parent)  
         Args: 
             city: str, the origin city name
-	        g: int, the cost to reach the node
-            f: int, estimated cost of the cheapest solution 
+	        g: int, g(n), the path cost from the start node to node n
+            f: int, f(n), estimated cost of the cheapest solution through n
             tc: int, total cost of current state
-            parent:
+            parent: node, parent node
         """
         self.city = city
         self.g = g
-        self.f = f
         self.tc = tc
+        self.f = f
         self.parent = parent
 
 class PriorityQueue:
@@ -43,20 +43,18 @@ def parse_input(file):
         lines = f.readlines()
         for l in lines:
             if l != 'END OF INPUT':
-                # TODO: maybe lower case is more convient
-                # l = l.lower().split()
                 l = l.split()
                 if l[0] not in input_dic:
                     input_dic[l[0]] = []
-                    input_dic[l[0]].append((l[1], l[2]))
+                    input_dic[l[0]].append((l[1], int(l[2])))
                 else:
-                    input_dic[l[0]].append((l[1], l[2]))
+                    input_dic[l[0]].append((l[1], int(l[2])))
                 
                 if l[1] not in input_dic:
                     input_dic[l[1]] = []
-                    input_dic[l[1]].append((l[0], l[2]))
+                    input_dic[l[1]].append((l[0], int(l[2])))
                 else:
-                    input_dic[l[1]].append((l[0], l[2]))
+                    input_dic[l[1]].append((l[0], int(l[2])))
     return input_dic
 
 def parse_heuristic(file):
@@ -76,7 +74,7 @@ def parse_heuristic(file):
                 # TODO: maybe lower case is more convient
                 # l = l.lower().split()
                 l = l.split()
-                heuristic[l[0]] = l[1]
+                heuristic[l[0]] = int(l[1])
     return heuristic
 
 if __name__ == "__main__":
