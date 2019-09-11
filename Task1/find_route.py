@@ -10,7 +10,7 @@ class FindRoute:
     Returns: 
 	    The return values of *.
     """
-    def __init__(self, data_dir, input_f, orig, dest, heuristic_f=None):
+    def __init__(self, data_dir, input_f, orig, dest, heuristic_f=None, isPrint=False):
         self.data_dir = data_dir
         self.input = parse_input(self.data_dir+input_f)
         self.orig = orig
@@ -20,7 +20,7 @@ class FindRoute:
         self.expanded_n = 0
         self.generated_n = 0
         self.max_n = 0
-        self.printLog = True
+        self.printLog = isPrint
 
     @staticmethod
     def _getTentativeCost(cities, node):
@@ -81,7 +81,6 @@ class FindRoute:
                 print("Fringe:")
                 print("\t{}".format([(e.city, e.g, e.f) for e in fringe.elements]))
                 print("Closed:")
-                print("\t{}".format([n.city for n in closed]))
                 print("\t{}".format(set([n.city for n in closed])))
                 print('----'*4)
             # Generating successors
@@ -125,11 +124,10 @@ if __name__ == "__main__":
                       opt.input_filename,
                       opt.origin_city,
                       opt.destination_city,
-                      opt.heuristic_filename)
+                      opt.heuristic_filename,
+                      opt.isPrint)
 
     path, expanded, generated, max_nodes = task1.Search()
-    paths = [p.city for p in path]
-    print(" --> ".join(paths))
     
     distance = sum(map(lambda x: x.c, path))
     print("nodes expanded: {}".format(expanded))

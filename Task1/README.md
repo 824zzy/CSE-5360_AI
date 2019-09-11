@@ -1,5 +1,30 @@
 # Task 1
 
+## Student Information
+
+`Name`: Zhengyuan Zhu
+`UTA ID`: 1001778274
+
+## Program Information
+
+1. `Programming Language`: Python3
+2. `The structure of code`:
+   1. `data/`: Store the test data of input and heuristic, image as well.
+   2. `find_route.py`: the main entrance for the task.
+   3. `opts.py`: the command line arguments are defined here.
+   4. `utils.py`: helper function and base class.
+
+## How to run the code
+
+1. Jump to this directory: `cd [your_path]/Task1`
+2. With heuristic information:
+   - `python find_route.py input1.txt Bremen Kassel h_kassel.txt`
+3. Without heuristic information:
+   - `python find_route.py input1.txt Bremen Kassel`
+
+
+## Task 1
+
 ![Visual representation of input1.txt](./data/visual_representation.gif)
 Implement a search algorithm that can find a route between any two cities. Your program will be called find_route, and will take exactly commandline arguments as follows:
 
