@@ -21,9 +21,10 @@
    - `python find_route.py input1.txt Bremen Kassel h_kassel.txt`
 3. Without heuristic information:
    - `python find_route.py input1.txt Bremen Kassel`
+4. If you want to see the details of process:
+   - `python find_route.py input1.txt Bremen Kassel --isPrint True`
 
-
-## Task 1
+## Task 1 description
 
 ![Visual representation of input1.txt](./data/visual_representation.gif)
 Implement a search algorithm that can find a route between any two cities. Your program will be called find_route, and will take exactly commandline arguments as follows:

@@ -24,16 +24,11 @@ class Fringe:
     def __len__(self):
         return len(self.elements)
     
-    def empty(self):
-        return len(self.elements) == 0
-    
     def push(self, item):
-        # heapq.heappush(self.elements, item)
         self.elements.append(item)
     
     def pop(self, item):
         self.elements.remove(item)
-        # return heapq.heappop(self.elements)
 
 def parse_input(file):
     """ Parse input file's lines into dictionary
@@ -83,6 +78,7 @@ def parse_heuristic(file):
                 l = l.split()
                 heuristic[l[0]] = int(l[1])
     return heuristic
+
 
 if __name__ == "__main__":
     input_d = parse_input('./data/input1.txt')
