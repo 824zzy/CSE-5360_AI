@@ -1,32 +1,39 @@
+import heapq
+
 class Node:
-    def __init__(self, city, g=0, tc=0, f=0, parent=None):
+    def __init__(self, city, g=0, c=0, f=0, parent=None):
         """Description: 
         'Nodes[nbour[0]] = node(nbour[0],cost,nbour[1], fvalue, parent)  
         Args: 
             city: str, the origin city name
-	        g: int, g(n), the path cost from the start node to node n
+	        g: int, g(n), cumulative cost, the cost from the start node to node n
+            tc: int, cost of current node to next node
             f: int, f(n), estimated cost of the cheapest solution through n
-            tc: int, total cost of current state
-            parent: node, parent node
+            parent: node, parent node, just record only parent rather than whole path
         """
         self.city = city
         self.g = g
-        self.tc = tc
+        self.c = c
         self.f = f
         self.parent = parent
 
-class PriorityQueue:
+class Fringe:
     def __init__(self):
         self.elements = []
+    
+    def __len__(self):
+        return len(self.elements)
     
     def empty(self):
         return len(self.elements) == 0
     
-    def put(self, item, priority):
-        heapq.heappush(self.elements, (priority, item))
+    def push(self, item):
+        # heapq.heappush(self.elements, item)
+        self.elements.append(item)
     
-    def get(self):
-        return heapq.heappop(self.elements)[1]
+    def pop(self, item):
+        self.elements.remove(item)
+        # return heapq.heappop(self.elements)
 
 def parse_input(file):
     """ Parse input file's lines into dictionary
