@@ -22,7 +22,7 @@
 3. Without heuristic information:
    - `python find_route.py input1.txt Bremen Kassel`
 4. If you want to see the details of process:
-   - `python find_route.py input1.txt Bremen Kassel --isPrint True`
+   - `python find_route.py input1.txt Bremen Kassel --printLog`
 
 ## Task 1 description
 
