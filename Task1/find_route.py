@@ -13,12 +13,11 @@ class FindRoute:
     def __init__(self, data_dir, input_f, orig, dest, heuristic_f=None, isPrint=False):
         self.data_dir = data_dir
         self.input = parse_input(self.data_dir+input_f)
-        self.orig = orig
-        self.dest = dest
         self.heuristic = parse_heuristic(self.data_dir+heuristic_f) if heuristic_f else []
         
         self.fringe = Fringe()
         self.closed = []
+        self.path = []
         
         self.expanded_n = 0
         self.generated_n = 0
@@ -26,24 +25,23 @@ class FindRoute:
         self.printLog = isPrint
 
     @staticmethod
-    def _getTentativeCost(cities, node):
+    def _getTargetCost(cities, node):
         for city in cities:
             if city[0] == node:
                 return city[1]
         return 0
 
-    def _getCost(self, node, parentCost):
+    def _getCost(self, node, parent):
         cost = 0
-        # if self.orig != node:
-        if parentCost:
-            cost = parentCost.g + self._getTentativeCost(self.input[parentCost.city], node)
+        if parent:
+            cost = parent.g + self._getTargetCost(self.input[parent.city], node)
         return cost
     
-    def _getFValue(self, node, parentCost=None):
+    def _getFValue(self, node, parent=None):
         heuristic, cost = 0, 0
         if node in self.heuristic:
             heuristic = self.heuristic[node]
-        cost = self._getCost(node, parentCost)
+        cost = self._getCost(node, parent)
         return cost, cost+heuristic
            
     def _getNode(self):
@@ -63,7 +61,7 @@ class FindRoute:
             nodes[n[0]] = Node(n[0], cost, n[1], fValue, parent)
         return nodes
     
-    def _print(self, current, mode, skip=False):
+    def _print(self, current=None, mode='F', succeed=True, skip=False):
         if mode=='F':
             if self.heuristic:
                 print("Informed Search selected")
@@ -90,13 +88,33 @@ class FindRoute:
             print("Closed:")
             print("\t{}".format(set([n.city for n in self.closed])))
             print('----'*4)
-        else:
-            pass
+        elif mode=='R':
+            self.path = self.path[::-1]
+            distance = sum(map(lambda x: x.c, self.path))
+            if succeed:
+                print("nodes expanded: {}".format(self.expanded_n+1))
+            else:
+                print("nodes expanded: {}".format(self.expanded_n))
+            print("nodes generated: {}".format(self.generated_n))
+            print("max nodes in memory: {}".format(self.max_n))
+            
+            if distance and len(self.path)>1:
+                print("distance: {} km".format(float(distance)))
+                print("route:")
+                for i in range(len(self.path)-1):
+                    print("{} to {}, {} km".format(self.path[i].city, self.path[i+1].city, float(self.path[i+1].c)))
+            elif len(self.path)==1:
+                print("distance: {} km".format(float(distance)))
+                print("route:")
+                print("{} to {}, {} km".format(self.path[0].city, self.path[0].city, float(self.path[0].c)))
+            else:
+                print("distance: infinity")
+                print("route: none")
 
 
-    def Search(self):
-        cost, fvalue = self._getFValue(self.orig)
-        startNode = Node(self.orig, 0, 0, fvalue, None)
+    def Search(self, origin, destination):
+        cost, fvalue = self._getFValue(origin)
+        startNode = Node(origin, 0, 0, fvalue, None)
         self.fringe.push(startNode)
         current = startNode
         count = 0
@@ -104,9 +122,7 @@ class FindRoute:
             self._print(current, 'F')
         
         while self.fringe:    
-            # Generating successors
             current = self._getNode()
-
             if current.city in [e.city for e in self.closed]:
                 self.expanded_n += 1
                 if self.printLog:
@@ -117,13 +133,12 @@ class FindRoute:
             
             neighboursNodes = self._getNeighbour(current)
 
-            if current.city==self.dest:
-                path = []
+            if current.city==destination:
                 while current.parent:
-                    path.append(current)
+                    self.path.append(current)
                     current = current.parent
-                path.append(current)
-                return (path[::-1], self.expanded_n+1, self.generated_n, self.max_n)
+                self.path.append(current)
+                return True
             
             self.fringe.pop(current)
             self.closed.append(current)
@@ -139,8 +154,7 @@ class FindRoute:
             if self.printLog:
                 self._print(current, 'C')
 
-        return ([], self.expanded_n, self.generated_n, self.max_n)
-
+        return False
 
 
 if __name__ == "__main__":
@@ -148,28 +162,8 @@ if __name__ == "__main__":
 
     task1 = FindRoute(opt.data_dir,
                       opt.input_filename,
-                      opt.origin_city,
-                      opt.destination_city,
                       opt.heuristic_filename,
                       opt.isPrint)
 
-    path, expanded, generated, max_nodes = task1.Search()
-    
-    distance = sum(map(lambda x: x.c, path))
-    print("nodes expanded: {}".format(expanded))
-    print("nodes generated: {}".format(generated))
-    print("max nodes in memory: {}".format(max_nodes))
-    
-    if distance and len(path) > 1:
-      print("distance: {} km".format(float(distance)))
-      print("route:")
-      for i in range(len(path) -1):
-        print("{} to {}, {} km".format(path[i].city, path[i+1].city, float(path[i+1].c)))
-    elif len(path) == 1:
-      print("distance: {} km".format(float(distance)))
-      print("route:")
-      print("{} to {}, {} km".format(path[0].city, path[0].city, float(path[0].c)))
-    else:
-      print("distance: infinity")
-      print("route: none")
-    
+    isSucceed = task1.Search(opt.origin_city, opt.destination_city)
+    task1._print(None, 'R', succeed=isSucceed)
