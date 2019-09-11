@@ -10,7 +10,7 @@ class FindRoute:
     Returns: 
 	    The return values of *.
     """
-    def __init__(self, data_dir, input_f, orig, dest, heuristic_f=None, isPrint=False):
+    def __init__(self, data_dir, input_f, heuristic_f=None, printLog=False):
         self.data_dir = data_dir
         self.input = parse_input(self.data_dir+input_f)
         self.heuristic = parse_heuristic(self.data_dir+heuristic_f) if heuristic_f else []
@@ -22,7 +22,7 @@ class FindRoute:
         self.expanded_n = 0
         self.generated_n = 0
         self.max_n = 0
-        self.printLog = isPrint
+        self.printLog = printLog
 
     @staticmethod
     def _getTargetCost(cities, node):
@@ -118,6 +118,7 @@ class FindRoute:
         self.fringe.push(startNode)
         current = startNode
         count = 0
+
         if self.printLog:
             self._print(current, 'F')
         
@@ -159,11 +160,10 @@ class FindRoute:
 
 if __name__ == "__main__":
     opt = opts.parse_opt()
-
     task1 = FindRoute(opt.data_dir,
                       opt.input_filename,
                       opt.heuristic_filename,
-                      opt.isPrint)
+                      opt.printLog)
 
     isSucceed = task1.Search(opt.origin_city, opt.destination_city)
     task1._print(None, 'R', succeed=isSucceed)
