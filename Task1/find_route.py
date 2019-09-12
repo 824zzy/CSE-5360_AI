@@ -1,7 +1,6 @@
 import opts
 import heapq
 from utils import *
-from collections import defaultdict
 
 class FindRoute:
     """Description
