@@ -23,8 +23,8 @@ For example:
 
 graphplan -o block\_ops.txt -f block\_facts3.txt  
 
-*   Argument operators\_file specifies the location of a text file containing definitions of actions. For example, see [block\_ops.txt](optassmt1_filesblock_ops.txt) for definitions of actions appropriate for the blocks world.
-*   Argument facts\_file specifies the location of a text file containing definitions of facts about the environment, including objects (and types for those objects), general predicates that are always true, initial state description, and goal description. For example, see [block\_facts2.txt](optassmt1_files/block_facts2.txt), [block\_facts3.txt](optassmt1_files/block_facts3.txt), and [block\_facts4.txt](optassmt1_files/block_facts4.txt) for example fact descriptions for the blocks world.
+* Argument operators\_file specifies the location of a text file containing definitions of actions. For example, see [block\_ops.txt](optassmt1_filesblock_ops.txt) for definitions of actions appropriate for the blocks world.
+* Argument facts\_file specifies the location of a text file containing definitions of facts about the environment, including objects (and types for those objects), general predicates that are always true, initial state description, and goal description. For example, see [block\_facts2.txt](optassmt1_files/block_facts2.txt), [block\_facts3.txt](optassmt1_files/block_facts3.txt), and [block\_facts4.txt](optassmt1_files/block_facts4.txt) for example fact descriptions for the blocks world.
 
 Once you start running the software, it will ask you three questions. Just hit enter for each question, so as to use the default settings. If your descriptions of actions and facts are correct, the program will print out a plan achieving the stated goal.
 
@@ -36,37 +36,37 @@ A description of the Tower of Hanoi domain can be found at [Wikipedia](http://en
 
 The two planning problems you have to solve are:
 
-**Problem 1**
+#### **Problem 1**
 
 initial state:  
 (on disk1 disk2)  
-(on disk2 A)   
+(on disk2 A)
 (clear disk1)  
 (clear B)  
-(clear C)   
+(clear C)
   
 goal:  
 (on disk1 B)  
 (on disk2 C)
 
-**Problem 2**
+#### **Problem 2**
 
 initial state:  
-(on disk1 disk2)   
+(on disk1 disk2)
 (on disk2 disk3)  
 (on disk3 disk4)  
 (on disk4 disk5)  
-(on disk5 C)   
-(clear disk1)   
-(clear A)   
+(on disk5 C)
+(clear disk1)
+(clear A)
 (clear B)  
   
 goal:  
-(on disk1 disk2)   
+(on disk1 disk2)
 (on disk2 disk3)  
 (on disk3 disk4)  
 (on disk4 disk5)  
-(on disk5 A)   
+(on disk5 A)
 
 ### 7-puzzle Description
 
@@ -74,7 +74,7 @@ goal:
 
 The two planning problems you have to solve are (X indicates a clear square):
 
-**Problem 1**
+`Problem 1`
 
 initial state:  
 12X  
@@ -86,7 +86,7 @@ goal:
 456  
 7XX
 
-**Problem 2**
+`Problem 2`
 
 initial state:  
 XX7  
@@ -102,5 +102,5 @@ goal:
 
 This task will be graded for 50 points. Half the points will correspond to your solutions for the Tower of Hanoi world, and the rest will correspond to your solutions for the 7-puzzle problem. Specifically, the point allocation is:
 
-*   32 points: defining facts and actions correctly. The language that you define (i.e., the actions, objects, and general statements that are always true) should be sufficient not only for the specific plans that you are required to construct, but also for any other planning problems that we can define in the Tower of Hanoi domain or the 7-puzzle domain. As part of grading, we will also test your solutions on planning problems that we will make up.
-*   18 points: solving the planning problems you are given (two for the Tower of Hanoi domain, two for the 7-puzzle domain) + 1 additional problem per domain. You get 3 points for each problem. If you solve all 6 correctly, you get 18 points.
+* 32 points: defining facts and actions correctly. The language that you define (i.e., the actions, objects, and general statements that are always true) should be sufficient not only for the specific plans that you are required to construct, but also for any other planning problems that we can define in the Tower of Hanoi domain or the 7-puzzle domain. As part of grading, we will also test your solutions on planning problems that we will make up.
+* 18 points: solving the planning problems you are given (two for the Tower of Hanoi domain, two for the 7-puzzle domain) + 1 additional problem per domain. You get 3 points for each problem. If you solve all 6 correctly, you get 18 points.
