@@ -11,9 +11,10 @@ print('The probability of P(out_of_cat_food) is {}'.format(pWtoFood)) # 0.16986
 
 denom2t = float(data[(data['game']==1)].shape[0]) # 111
 denom2f = float(data[(data['game']==0)].shape[0]) # 254
-watch = data[(data['game']>0)&(data['watch']>0)].sum()['watch'] # 103
-pWatchTrue = watch / denom2t # 103/111
-pWatchFalse = watch / denom2f # 103/254
+watch1 = data[(data['game']>0)&(data['watch']>0)].sum()['watch'] # 103
+watch2 = data[(data['game']==0)&(data['watch']==1)].sum()['watch'] # 103
+pWatchTrue = watch1 / denom2t # 103/111
+pWatchFalse = watch2 / denom2f # 103/254
 print('The probability of P(Geogrge_watches_TV|basket_game_on_TV) is {}'.format(pWatchTrue))
 print('The probability of P(Geogrge_watches_TV|not(basket_game_on_TV)) is {}'.format(pWatchFalse))
 
