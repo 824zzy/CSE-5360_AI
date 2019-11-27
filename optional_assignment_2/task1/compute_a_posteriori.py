@@ -27,11 +27,12 @@ class env:
         return self.obs
 
 if __name__ == "__main__":
-    Q = argv[1]+'C'
+    Q = argv[1]
     E = env()
     f = open('result.txt', 'w')
     f.write("Observation sequence Q: {}\n".format(Q))
     f.write("Length of Q: {}\n".format(len(Q)))
+    Q += 'C' # for the sake of extra probability of candy
     E.observation(Q[0])
     for i in range(len(Q)-1):
         f.write("\nAfter Observation {}: {}\n\n".format(i+1, Q[i]))   
